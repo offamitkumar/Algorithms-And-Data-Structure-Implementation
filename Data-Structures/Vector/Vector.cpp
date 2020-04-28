@@ -16,6 +16,14 @@ class Vector{
             objects = new Object[ theCapacity ];
         }
 
+        explicit Vector( int initSize , int defaultValue): theSize{ initSize } , theCapacity{ initSize + SPARE_CAPACITY }{
+            Object *tempArray = new Object[ theCapacity ];
+            for(int i=0; i < theSize; ++i){
+                tempArray[ i ] = defaultValue;
+            }
+            std::swap(objects , tempArray);
+        }
+
         // copy constructor 
         Vector( Vector & rhs ):theSize{ rhs.theSize } , theCapacity{ rhs.theCapacity } , objects{ nullptr }{
             objects = new Object[ theCapacity ];
@@ -66,19 +74,30 @@ class Vector{
         }
 
 
-        void reserve( int newCapacity ) {
+        void assign( int newSize , int defaultValue=0 ) {
+            if(newSize > theCapacity){
+                reserve(newSize*2 , true);
+            }
+            for(int i{0}; i < newSize; ++i){
+                objects[i] = defaultValue;
+            }
+        }
+
+        void reserve( int newCapacity ,bool isDefaultValueGiven = false) {
             if( newCapacity < theSize ) {
                 return ;
             }
 
             Object *newArray = new Object[ newCapacity ]; 
-
-            for( int i{0}; i < theSize; ++i ) {
-                newArray[ i ] =  std::move( objects[ i ] );
-            }
-
             theCapacity = newCapacity;
             std::swap( objects , newArray ); // now object have a different size 
+
+            if(isDefaultValueGiven==false){
+                for( int i{0}; i < theSize; ++i ) {
+                    newArray[ i ] =  std::move( objects[ i ] );
+                }
+            }
+
             delete []newArray; // delete the temporary array which is storing the values from previous stage
 
         }
@@ -94,6 +113,7 @@ class Vector{
         bool empty( void  ) const {
             return size() == 0;
         }
+
 
         bool size( void ) const {
             return theSize;
@@ -121,23 +141,23 @@ class Vector{
             return objects[ theSize - 1 ];
         }
 
-        typedef Object * iterator;
+        typedef Object* iterator;
 
-        typedef const Object * const_iterator;
+        typedef const Object* const_iterator;
 
-        iterator begin( void ) {
-            return & objects[ 0 ];
+        iterator begin( ) {
+            return &objects[ 0 ];
         }
 
-        const_iterator begin( void ) {
-            return & objects[ 0 ];
+        const_iterator begin( ) const {
+            return &objects[ 0 ];
         }
 
-        iterator end( void ) {
-            return &objects [ size() ];
+        iterator end( ) {
+            return &objects[ size() ];
         } 
 
-        const_iterator( void ) {
+        const_iterator end( ) const {
             return &objects[ size() ];
         }
 };
