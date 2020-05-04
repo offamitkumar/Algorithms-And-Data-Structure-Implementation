@@ -8,6 +8,9 @@ class Stack{
         Node* next;
         Object data;
         public:
+
+        Node():next{ nullptr } , data{ 0 } {}
+
         Node(Node* current , const Object &data): next{ current } , data{ data } { }
 
         Node(Node* current , Object && data): next{ current } , data { move(data) } {  }
