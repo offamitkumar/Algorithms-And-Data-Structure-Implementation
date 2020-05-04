@@ -28,7 +28,7 @@ class Queue{
 
     public:
 
-        Queue():head{ nullptr } , tail{ nullptr }{
+        Queue():head{ nullptr } , tail{ nullptr } , theSize{ 0 }{
             
         }
 
