@@ -34,7 +34,7 @@ class Stack{
     void push( Object &obj ) {
         if( head == nullptr ) {
             head = new Node{ obj };
-            tail = head;
+            tail = new Node{ -1 }; // end marker 
             return;
         }else{
             head = new Node{ head , obj };
@@ -42,7 +42,7 @@ class Stack{
     }
 
     bool empty( void ) const {
-        return head == nullptr;
+        return head == tail;
     }
 
     const Object top( void ) const {
@@ -51,7 +51,7 @@ class Stack{
 
     void pop( void ) {
 
-        if(head == nullptr){
+        if(head == tail){
             cout<<"( Empty Stack )"<<'\n';
             return ;
         }
