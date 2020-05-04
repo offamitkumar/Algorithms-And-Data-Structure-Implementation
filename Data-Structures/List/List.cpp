@@ -1,6 +1,6 @@
 #include <algorithm>
 
-template< typename Object >
+template< class Object >
 class List{
 
     private:
@@ -39,6 +39,8 @@ class List{
 
             protected:
 
+                const List< Object > *theList;
+
                 Node* current; // class iterator will need this so instead of making it
                 // private we can make it protected so that inherited classes can use it
 
@@ -46,11 +48,21 @@ class List{
                     return current -> data;
                 }
 
+                const_iterator( const List<Object> &lst , Node*p ):
+                    theList{ &lst } , current{ p } 
+                {}
+
                 const_iterator ( Node* p ) : current{ p } {  } // function is used to implement begin & end 
 
                 friend class List< Object >; // List class need some of implementation of this class 
                 // but we also can't expose them to all of the other classes so we need to make 
                 // List class a friend of const_iterator class
+                
+                void assertIsValid( ) const{
+                    if( theList == nullptr or current == nullptr or current == theList->head ) {
+                        //throw IteratorOutOfBoundException{ }; // to be implemented
+                    }
+                }
 
             public:
 
@@ -157,7 +169,8 @@ class List{
         }
 
         const_iterator begin( ) const{
-            return { head-> next }; // List call is friend of const_iterator class
+            const_iterator itr{ *this , head };
+            return ++itr; // List class is friend of const_iterator class
         }
 
         iterator end( ) {
@@ -199,38 +212,69 @@ class List{
         }
 
         void push_front( const Object &x ){
-            insert( begin() , x );  // to be implemented
+            insert( begin() , x );  
         }
 
         void push_front( Object && x ) {
-            insert( begin(), std::move( x ) ); // to be implemented
+            insert( begin(), std::move( x ) ); 
         }
 
         void push_back( const Object &x ) {
-            insert( end() , x ); // to be implemented
+            insert( end() , x ); 
 
         }
 
         void push_back( Object && x ) {
-            insert( end() , std::move( x ) ); // to be implemented
+            insert( end() , std::move( x ) ); 
 
         }
 
         void pop_front( ) {
-            erase( begin( ) ); // to be implemented
+            erase( begin( ) ); 
 
         } 
 
         void pop_back( ){
-            erase( --end( ) ); // to be implemented 
+            erase( --end( ) );
+        }
+
+        iterator insert( iterator itr , const Object & x ) {
+
+            itr.assertIsValid();
+            if( itr.theList != this ) {
+                //throw IteratorMismatchException{ }; // to be implemented 
+            }
+
+            Node *p = itr.current;
+            ++theSize;
+            return { p->prev = p->prev->next = new Node{ x , p->prev , p } };
+        }
+
+        iterator insert( iterator itr , Object && x ) {
+            Node *p = itr.current;
+            theSize++;
+            return { p->prev = p->prev->next = new Node{ std::move( x ) , p->prev , p } };
+        }
+
+        iterator erase( iterator itr ) {
+            Node *p = itr.current;
+            iterator retVal{ p->next };
+            p->prev->next = p->next;
+            p->next->prev = p->prev;
+            delete p;
+            theSize--;
+            return retVal;
+        }
+
+        iterator erase( iterator from , iterator to ) {
+            for( iterator itr = from; itr != to; )
+                itr = erase(itr);
+            return to;
         }
         
 };
 
 
 int main(void){
-    List<int>l;
-    int x = l.front();
-    List<int>::iterator itr = l.begin();
     return 0;
 }
