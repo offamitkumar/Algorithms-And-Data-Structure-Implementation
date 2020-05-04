@@ -3,29 +3,32 @@ using namespace std;
 
 template< class Object >
 class Stack{
+    private:
 
-    class Node{
-        Node* next;
-        Object data;
-        public:
 
-        Node():next{ nullptr } , data{ 0 } {}
+        class Node{
+            Node* next;
+            Object data;
+            public:
 
-        Node(Node* current , const Object &data): next{ current } , data{ data } { }
+            Node():next{ nullptr } , data{ 0 } {}
 
-        Node(Node* current , Object && data): next{ current } , data { move(data) } {  }
+            Node(Node* current , const Object &data): next{ current } , data{ data } { }
 
-        Node( Object &data ): next{ nullptr } , data{ data } {}
+            Node(Node* current , Object && data): next{ current } , data { move(data) } {  }
 
-        Node( Object && data ): next{ nullptr } , data{ move( data ) } {}
+            Node( Object &data ): next{ nullptr } , data{ data } {}
 
-    };
+            Node( Object && data ): next{ nullptr } , data{ move( data ) } {}
 
-    Node* head ;
-    Node* tail ;
+        };
+
+        Node* head ;
+        Node* tail ;
+        int theSize;
     public:
 
-    Stack():head{ nullptr } , tail{ nullptr }{
+    Stack():head{ nullptr } , tail{ nullptr } , theSize{ 0 }{
     }
 
     ~Stack(){
@@ -34,7 +37,13 @@ class Stack{
         }
     }
 
+    int size( void ) const {
+        return theSize;
+    }
+
     void push( Object &obj ) {
+        ++theSize;
+
         if( head == nullptr ) {
             head = new Node{ obj };
             tail = new Node{ -1 }; // end marker 
@@ -58,6 +67,8 @@ class Stack{
             cout<<"( Empty Stack )"<<'\n';
             return ;
         }
+
+        --theSize;
 
         Node *p = head;
 
