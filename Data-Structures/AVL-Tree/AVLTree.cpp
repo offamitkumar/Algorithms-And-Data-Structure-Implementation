@@ -174,4 +174,120 @@ class AvlTree{
                 delete oldNode;
             }
         }
+        
+        void balance( AvlNode * &t ) {
+            if( t == nullptr ){
+                return ;
+            }
+
+            if(height( t->left ) - height( t->right ) > ALLOWED_IMBALANCE){
+                if( height( t-> left -> left ) >= height( t-> left -> right ) ) {
+                    rotateWithLeftChild( t );
+                }else{
+                    doubleWithLeftChild( t );
+                }
+            }else if( height( t->right ) - height( t-left ) > ALLOWED_IMBALANCE ){
+                if(height( t->right->right ) >= height( t->right -> left )){
+                    rotateWithRightChild( t );
+                }else{
+                    doubleWithRightChild( t );
+                }
+            }
+            t ->height = max( height( t->left ) , height( t->right ) ) + 1;
+        }
+
+        AvlNode* findMin( AvlNode *t ) const{
+            if(t == nullptr){
+                return nullptr;
+            }
+            if(t->left == nullptr){
+                return t;
+            }else{
+                return findMin(t->left);
+            }
+        }
+
+        AvlNode* findMax( AvlNode*t ) const{
+            if(t == nullptr){
+                return nullptr;
+            }
+            if(t->right == nullptr){
+                return t;
+            }else{
+                return findMax(t -> right);
+            }
+        }
+
+        bool contains( const Comparable& x , AvlNode *t ) const{
+            if(t == nullptr){
+                return false;
+            }else if( x <  t -> element){
+                return contains( x , t -> left );
+            }else if( t->element < x ){
+                return contains( x , t -> right );
+            }else
+                return true;
+        }
+        
+        void makeEmpty(AvlNode* &t){
+            if( t != nullptr ){
+                makeEmpty( t->left );
+                makeEmpty( t->right );
+                delete t;
+            }
+            t = nullptr;
+        }
+
+        void printTree( AvlNode* t ) const {
+            if( t != nullptr ){
+                printTree( t->left );
+                cout<< t -> element << '\n'; 
+                printTree( t->right );
+            }
+        }
+
+        AvlNode *clone( AvlNode*t ) const {
+            if(t == nullptr){
+                return nullptr;
+            }else{
+                return new AvlNode{ t->element , clone( t->left ) , clone(t->right) , t->height };
+            }
+        }
+
+        int height( AvlNode *t ) const {
+            return t == nullptr ? -1 : t->height;
+        }
+
+        int max( int lhs , int rhs ) const {
+            return lhs > rhs ? lhs : rhs;
+        }
+
+        void rotateWithLeftChild( AvlNode *& k2 ){
+            AvlNode* k1 = k2 -> left;
+            k2 -> left = k1 ->right;
+            k1 -> right = k2; 
+            k2 -> height = max( height( k2->left ) , height(k2->right) )+1;
+            k1 -> height = max( height( k1->left ) , k2 -> height )+1;
+            k2 = k1;
+        }
+
+        void rotateWithRightChild( AvlNode* &k1 ) {
+            AvlNode*k2 = k1 -> right;
+            k1 -> right = k2 -> left;
+            k2 -> left = k1;
+            k1 -> height = max( height(k1->left) , height(k1->right) )+1;
+            k2 -> height = max( height(k2->right) , k1->height ) +1;
+            k1 = k2;
+        }
+
+        void doubleWithLeftChild(AvlNode* &k3){
+            rotateWithRightChild(k3 -> left);
+            rotateWithLeftChild(k3 -> right);
+        }
+
+        void doubleWithRightChild( AvlNode*& k1 ){
+            rotateWithLeftChild(k1->right);
+            rotateWithRightChild(k1);
+        }
+
 };
