@@ -44,7 +44,7 @@ using namespace std;
 //  > ;
 const int MAXM = (int)1e5+100;
 const int MAXN = (int)1e5+100;
-const int MOD = (int)1e5+100;
+const int MOD = (int)1e9+7;
 
 int main(void){
 #ifdef HELL_JUDGE
