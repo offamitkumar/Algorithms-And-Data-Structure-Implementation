@@ -19,7 +19,7 @@ void set_seg_tree(int current_node , int left_, int right_){
 
 long long query(int current_node , int start_, int end_, int q_start, int q_end){
     if(q_start > end_ || q_end < start_ || start_ > end_){
-        return 0;
+        return 0; // CHANGE IT IF FUNCTION IS MIN OR MAX 
     }
     if(start_ == end_){
         return seg_tree[current_node];
