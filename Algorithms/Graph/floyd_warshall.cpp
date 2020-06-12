@@ -1,47 +1,54 @@
 const int MAXN = 500
 long long dist[MAXN][MAXN];
+long long n ,m , q , u , v ,w;
 
 for(int i=0;i<MAXN;++i){
     for(int j=0;j<MAXN;++j){
-        dist[i][j] = INT_MAX;
-        // distance of node from itself 
-        dist[i][i] = 0;
-        dist[j][j] = 0;
+        arr[i][j] = INT_MAX;
+        arr[i][i] = 0;
+        arr[j][j] = 0;
     }
 }
 
-// input 
+// edge input 
 for(int i=0;i<m;++i){
-    int u,v,w; scanf("%d %d %d",&u,&v,&w);
-    dist[u][v] = w;
-    // input might say dist[u][u] != 0 , assume that it's not true
-    dist[u][u] = 0;
-    dist[v][v] = 0;
+    int u , v, w; scanf("%d %d %d",&u ,&v ,&w);
+    arr[u][v] = min(arr[u][v] ,(long long) w);
 }
-    
 
-
-// keep the k before i & j : 0 based Indexing 
-    for(int k=0;k<n;++k){
-        for(int i=0;i<n; ++i){
-            for(int j=0;j<n;++j){
-                if(dist[i][j] > dist[i][k] + dist[k][j]){
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                }
+// keep the k before i & j
+for(int k=0;k<n;++k){
+    for(int i=0;i<n; ++i){
+        for(int j=0;j<n;++j){
+            if(arr[i][k] != INT_MAX && arr[k][j] != INT_MAX){
+                arr[i][j] = min(arr[i][j] , arr[i][k] + arr[k][j]);
             }
         }
     }
+}
 
-
-
-// keep the k before i & j : 1 based Indexing 
-    for(int k=1;k<=n;++k){
-        for(int i=1;i<=n; ++i){
-            for(int j=1;j<=n;++j){
-                if(dist[i][j] > dist[i][k] + dist[k][j]){
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                }
+// diagonal element will became negative if there 
+// exist a negative weight cycle 
+// find negative cycle
+for(int i=0;i<n;++i){
+    for(int j=0;j<n;++j){
+        for(int k=0;k<n;++k){
+            if(arr[k][k]<0 && arr[i][k]!=INT_MAX && arr[k][j] != INT_MAX){
+                arr[i][j] = INT_MIN;
             }
         }
     }
+}
 
+while(q--){
+    int u , v; scanf("%d %d",&u,&v);
+    if(arr[u][v]==INT_MAX){
+        puts("Impossible");
+    }else if(arr[u][v]==INT_MIN){
+        puts("-Infinity");
+    }else{
+        printf("%lld\n",arr[u][v]);
+    }
+}
+puts("");
+}
