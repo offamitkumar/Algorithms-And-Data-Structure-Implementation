@@ -8,11 +8,11 @@ long long seg_tree[4*MAXN];
 
 // FILL THIS FUNCTION 
 inline long long funct(const long long &value_one , const long long &value_two){
-    return value_one ************** value_two;
+    return value_one ************** value_two; // ERROR POINT 1
 }
 
 
-// build the segment tree 
+// BUILD THE SEGMENT TREE 
 void build(int current_node , int left_, int right_){
     if(left_ == right_) {
         seg_tree[current_node] = arr[left_];
@@ -25,10 +25,10 @@ void build(int current_node , int left_, int right_){
     return ;
 }
 
-// range queries 
+// RANGE QUERIES 
 long long query(int current_node , int start_, int end_, int q_start, int q_end){
     if(q_start > end_ || q_end < start_ || start_ > end_){
-        return 0; // CHANGE IT IF FUNCTION IS MIN OR MAX 
+        return 0; // ERROR POINT 2 , CHANGE WITH MIN OR MAX QUERY 
     }
     if(start_ == end_){
         return seg_tree[current_node];
@@ -42,7 +42,7 @@ long long query(int current_node , int start_, int end_, int q_start, int q_end)
     return funct(left_ans, right_ans);
 }
 
-// just for simple position update 
+// FOR POINT UPDATE  
 void update(int current_node , int start , int end , int pos , int value){
     if(start > end || pos > end || pos < start ){
         return ;
@@ -56,4 +56,9 @@ void update(int current_node , int start , int end , int pos , int value){
     update(current_node*2+1, mid+1 , end , pos , value);
     seg_tree[current_node] = funct(seg_tree[2*current_node] , seg_tree[2*current_node+1]);
 }
+
+// 0 BASED INDEXING , BE CAREFUL WITH QUESTION QUERY TYPE
+// BUILD (CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT);
+// QUERY(CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT, Q_START, Q_END);
+// UPDATE(CURRENT_NODE, ARRAY_START_POINT, ARRAY_END_POINT, POSITION, VALUE);
 
