@@ -1,6 +1,6 @@
 
 
-typedef __int128 LInt;
+using LInt = __int128;
 ostream& operator<<(ostream&cout , LInt number){
     auto toString = [](LInt num){
         auto tenPow18 = 1000000000000000000;
