@@ -1,6 +1,4 @@
 
-
-
 void check2(int64_t &a){
     if(a<0){
         a = (a+MOD+MOD)%MOD;
@@ -50,6 +48,4 @@ int64_t div(int64_t a, int64_t b){
     check2(temp);
     return temp;
 }
-
-
 

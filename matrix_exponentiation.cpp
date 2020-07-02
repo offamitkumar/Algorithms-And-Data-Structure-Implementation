@@ -1,4 +1,3 @@
-const int MOD  = (int)1e9+7;
 
 struct Matrix{
     int matrixSize;

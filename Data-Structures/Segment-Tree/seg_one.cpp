@@ -1,13 +1,11 @@
-const int MAXN = (int)2e5+100;
-const int MOD = (int)1e9+7;
 
 
 // default size is considered MAXN
-long long arr[MAXN];
-long long seg_tree[4*MAXN];
+vector<int64_t>arr(MAXN);
+vector<int64_t>seg_tree(4*MAXN);
 
 // FILL THIS FUNCTION 
-inline long long funct(const long long &value_one , const long long &value_two){
+inline int64_t funct(const int64_t &value_one , const int64_t &value_two){
     return value_one ************** value_two; // ERROR POINT 1
 }
 
@@ -26,7 +24,7 @@ void build(int current_node , int left_, int right_){
 }
 
 // RANGE QUERIES 
-long long query(int current_node , int start_, int end_, int q_start, int q_end){
+int64_t query(int current_node , int start_, int end_, int q_start, int q_end){
     if(q_start > end_ || q_end < start_ || start_ > end_){
         return 0; // ERROR POINT 2 , CHANGE WITH MIN OR MAX QUERY 
     }
@@ -37,8 +35,8 @@ long long query(int current_node , int start_, int end_, int q_start, int q_end)
         return seg_tree[current_node];
     }
     int mid_point = start_ + (end_ - start_) / 2;
-    long long left_ans = query(current_node*2,start_,mid_point,q_start, q_end);
-    long long right_ans= query(current_node*2+1,mid_point+1,end_,q_start, q_end);
+    int64_t left_ans = query(current_node*2,start_,mid_point,q_start, q_end);
+    int64_t right_ans= query(current_node*2+1,mid_point+1,end_,q_start, q_end);
     return funct(left_ans, right_ans);
 }
 
@@ -61,4 +59,5 @@ void update(int current_node , int start , int end , int pos , int value){
 // BUILD (CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT);
 // QUERY(CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT, Q_START, Q_END);
 // UPDATE(CURRENT_NODE, ARRAY_START_POINT, ARRAY_END_POINT, POSITION, VALUE);
-
+  
+  
