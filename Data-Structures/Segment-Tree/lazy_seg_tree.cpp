@@ -1,12 +1,12 @@
 
-const int MAXN = (int)2 * 1e5+10000;
-const int MOD = (int)1e9+7;
 
-long long seg_tree[4 * MAXN];
-long long arr[MAXN];
-long long lazy_tree[4 * MAXN];
 
-void build(long long current_node , long long start , long long end ){
+int64_t seg_tree[4 * MAXN];
+vector<int64_t>seg_tree(4*MAXN);
+vector<int64_t>lazy_tree(4*MAXN);
+vector<int64_t>arr(MAXN);
+
+void build(int64_t current_node , int64_t start , int64_t end ){
     if(start > end){
         return ;
     }
@@ -14,13 +14,13 @@ void build(long long current_node , long long start , long long end ){
         seg_tree[current_node] = arr[start];
         return;
     }
-    long long mid = (start + end) / 2ll;
+    int64_t mid = (start + end) / 2ll;
     build(2*current_node , start , mid);
     build(2*current_node +1ll , mid + 1ll, end);
     seg_tree[current_node] = 0ll;
     lazy_tree[current_node] = 0ll;
 }
-void push_updates(long long current_node , long long start , long long end){
+void push_updates(int64_t current_node , int64_t start , int64_t end){
     if(start == end){
         seg_tree[current_node] += lazy_tree[current_node];
     }
@@ -30,7 +30,7 @@ void push_updates(long long current_node , long long start , long long end){
     }
     lazy_tree[current_node] = 0ll;
 }
-void update(long long current_node , long long start , long long end , long long q_start , long long q_end , long long value){
+void update(int64_t current_node , int64_t start , int64_t end , int64_t q_start , int64_t q_end , int64_t value){
     if( start > q_end || end < q_start || start > end ){
         return ;
     }
@@ -45,11 +45,11 @@ void update(long long current_node , long long start , long long end , long long
         }
         return;
     }
-    long long mid = (start + end)/2;
+    int64_t mid = (start + end)/2;
     update(2*current_node , start , mid , q_start , q_end , value);
     update(2*current_node+1 , mid+1 ,  end , q_start , q_end , value);
 }
-long long query(long long current_node , long long start , long long end , long long pos){
+int64_t query(int64_t current_node , int64_t start , int64_t end , int64_t pos){
     if(lazy_tree[current_node]!=0){
         push_updates(current_node , start , end);
     }
@@ -59,10 +59,13 @@ long long query(long long current_node , long long start , long long end , long 
     if(start == pos && end == pos){
         return seg_tree[current_node];
     }
-    long long mid = (start + end) /2;
+    int64_t mid = (start + end) /2;
     if(mid >= pos){
         return query(2*current_node , start , mid , pos);
     }else{
         return query(2*current_node +1 , mid+1 , end , pos);
     }
 }
+
+
+
