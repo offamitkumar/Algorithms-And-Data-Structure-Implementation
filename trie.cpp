@@ -37,3 +37,5 @@ void add(Node*root , const string &s){
     }
     temp->isEnd = true;
 }
+
+
