@@ -1,7 +1,4 @@
-
-
 vector<int>table;
-
 void pre(string&a){
     table.assign(a.size() , 0);
     table[0] =-1;
@@ -15,7 +12,6 @@ void pre(string&a){
         table[i] = j;
     }
 }
-
 void search(string &a , string &b){
     pre(a);
     int i=0 , j = 0;
@@ -32,5 +28,3 @@ void search(string &a , string &b){
     }
     cout << '\n'; 
 } 
-
-

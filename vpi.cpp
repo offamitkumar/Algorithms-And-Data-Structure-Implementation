@@ -1,5 +1,3 @@
-
-
 template<typename A, typename B>
 ostream& operator<<(ostream&out, const pair<A, B>&p){
     out << p.first << ' ' << p.second ;
@@ -27,5 +25,3 @@ ostream& operator<<(ostream&out,const vector<A>&vec){
     }
     return out;
 }
-
-

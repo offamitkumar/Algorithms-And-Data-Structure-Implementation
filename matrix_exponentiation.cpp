@@ -1,4 +1,3 @@
-
 struct Matrix{
     int matrixSize;
     vector< vector < int64_t > >mat;
@@ -6,7 +5,6 @@ struct Matrix{
         matrixSize = r;
         mat.assign(r , vector<int64_t>(r, 0));
     }
-
     Matrix operator*(const Matrix &B){
         Matrix T(matrixSize);
         for ( int i = 0 ; i < matrixSize; ++i) {
@@ -19,7 +17,6 @@ struct Matrix{
         }
         return T;
     }
-
     void operator*=(const Matrix &B){
         Matrix T(matrixSize);
         for ( int i = 0 ; i < matrixSize; ++i) {
@@ -36,13 +33,11 @@ struct Matrix{
             }
         }
     }
-
     void makeIdentity(){
         for ( int i = 0; i < matrixSize; ++i ) {
             mat[i][i] = 1;
         }
     }
-
     friend Matrix power(Matrix &A , int64_t b){
         Matrix temp(A.matrixSize);
         temp.makeIdentity();
@@ -55,7 +50,6 @@ struct Matrix{
         }
         return temp;
     }
-
     friend ostream& operator<<(ostream&cout, const Matrix &a) {
         for(int i=0; i < a.matrixSize; ++i) {
             for ( int j = 0; j < a.matrixSize; ++j ) {
@@ -65,8 +59,4 @@ struct Matrix{
         }
         return cout;
     }
-
 };
-
-
-

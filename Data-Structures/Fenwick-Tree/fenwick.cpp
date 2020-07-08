@@ -1,9 +1,5 @@
-
-
-
 vector<int64_t>ftree(MAXN);
 #define MSB(X) ((X)&(-X))
-
 void update(int64_t a, int64_t val){
     a+=1ll;
     while(a<MAXN){
@@ -12,7 +8,6 @@ void update(int64_t a, int64_t val){
     }
     return;
 }
-
 int64_t query(int64_t a){
     int64_t sum=ftree[0];
     while(a>0){
@@ -21,6 +16,3 @@ int64_t query(int64_t a){
     }
     return sum;
 }
-
-
-

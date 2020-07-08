@@ -1,15 +1,10 @@
-
-
 // default size is considered MAXN
 vector<int64_t>arr(MAXN);
 vector<int64_t>seg_tree(4*MAXN);
-
 // FILL THIS FUNCTION 
 inline int64_t funct(const int64_t &value_one , const int64_t &value_two){
     return value_one ************** value_two; // ERROR POINT 1
 }
-
-
 // BUILD THE SEGMENT TREE 
 void build(int current_node , int left_, int right_){
     if(left_ == right_) {
@@ -22,7 +17,6 @@ void build(int current_node , int left_, int right_){
     seg_tree[current_node] = funct(seg_tree[2*current_node], seg_tree[2*current_node+1]);
     return ;
 }
-
 // RANGE QUERIES 
 int64_t query(int current_node , int start_, int end_, int q_start, int q_end){
     if(q_start > end_ || q_end < start_ || start_ > end_){
@@ -59,5 +53,3 @@ void update(int current_node , int start , int end , int pos , int value){
 // BUILD (CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT);
 // QUERY(CURRENT_NODE, ARRAY_START_POINT , ARRAY_END_POINT, Q_START, Q_END);
 // UPDATE(CURRENT_NODE, ARRAY_START_POINT, ARRAY_END_POINT, POSITION, VALUE);
-  
-  

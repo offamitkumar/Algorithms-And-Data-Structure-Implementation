@@ -1,5 +1,3 @@
-
-
 const int N = 10000000;
 int lp[N+1];
 vector<int> pr;
@@ -13,5 +11,3 @@ void linear_sieve(void){
             lp[i * pr[j]] = pr[j];
     }
 }
-
-

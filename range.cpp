@@ -1,4 +1,3 @@
-
 class NumberIterator : iterator<forward_iterator_tag, int> {
     public:
         int v;
@@ -9,7 +8,6 @@ class NumberIterator : iterator<forward_iterator_tag, int> {
 
         int operator*() { return v; }
 };
-
 class range : pair<int,int> {
     public:
         range(int begin, int end) : pair<int,int>(begin, max(begin, end)) {}
@@ -21,4 +19,3 @@ class range : pair<int,int> {
             return second;
         }
 };
-

@@ -1,11 +1,7 @@
-
-
-
 int64_t seg_tree[4 * MAXN];
 vector<int64_t>seg_tree(4*MAXN);
 vector<int64_t>lazy_tree(4*MAXN);
 vector<int64_t>arr(MAXN);
-
 void build(int64_t current_node , int64_t start , int64_t end ){
     if(start > end){
         return ;
@@ -66,6 +62,3 @@ int64_t query(int64_t current_node , int64_t start , int64_t end , int64_t pos){
         return query(2*current_node +1 , mid+1 , end , pos);
     }
 }
-
-
-
