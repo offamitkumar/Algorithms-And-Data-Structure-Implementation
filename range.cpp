@@ -1,3 +1,5 @@
+// range(0-N) /*{{{*/
+
 class NumberIterator : iterator<forward_iterator_tag, int> {
     public:
         int v;
@@ -19,3 +21,5 @@ class range : pair<int,int> {
             return second;
         }
 };
+
+// /*}}}*/

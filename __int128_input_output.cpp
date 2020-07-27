@@ -1,5 +1,8 @@
+// __int128 input /*{{{*/
 using LInt = __int128;
+
 // logic copied from stackoverflow , I just overloaded the operators 
+
 ostream& operator<<(ostream&cout , LInt number){
     auto toString = [](LInt num){
         auto tenPow18 = 1000000000000000000;
@@ -16,6 +19,7 @@ ostream& operator<<(ostream&cout , LInt number){
     cout << toString(number);
     return cout;
 }
+
 istream& operator>>(istream&cin , LInt &number){
     string s; cin >> s; 
     number = 0;
@@ -33,3 +37,5 @@ istream& operator>>(istream&cin , LInt &number){
     }
     return cin;
 }
+
+/*}}}*/

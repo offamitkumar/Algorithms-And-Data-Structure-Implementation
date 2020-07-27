@@ -1,4 +1,6 @@
-const int MOD = (int)1e9+7;
+// /*{{{*/
+// Mod Exp: @function_name m_pow 
+// /*{{{*/
 int64_t m_pow(int64_t a, int64_t b , int64_t uMOD = (int64_t)1e9+7){
     int64_t res{1ll};
     while(b){
@@ -10,3 +12,5 @@ int64_t m_pow(int64_t a, int64_t b , int64_t uMOD = (int64_t)1e9+7){
     }
     return res;
 }
+/*}}}*/
+/*}}}*/
